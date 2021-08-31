@@ -1,0 +1,69 @@
+
+<div class="container">
+    <ng-container *ngIf="detail">
+        <ng-container *ngIf="!editMode; else formEdit">
+            <h1>{{detail.title}}</h1>
+            <div class="metaInfo row">
+                <div class="col col-md-8 col-lg-9">
+                    <ul>
+                        <li><b>Job ID:</b> {{detail.id}}</li>
+                        <li><b>Company name:</b> {{detail.company}}</li>
+                        <li><b>Company website: </b><a href="{{detail.link}}" target="_blank">Open link</a></li>
+                        <li><b>Deadline submit:</b> {{detail.date}}</li>
+                        <li><b>Type:</b> {{detail.type == 0? 'Part time' : 'Full time'}}</li>
+                    </ul>
+                </div>
+                <div class="col col-md-4 col-lg-3">
+                    <img src="{{detail.logo}}" alt="">
+                </div>
+            </div>
+    
+            <div class="desc">
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis alias tempore quasi assumenda mollitia iste, consectetur enim eius. Itaque, quos.</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, nihil.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam saepe, ullam sed iure eius, reiciendis consequuntur animi, recusandae voluptas quasi corporis earum ad odio? Quos magni dicta est eligendi eaque!</p>
+            </div>
+
+            <button type="button" (click)="handleClickEdit()" class="btn btn-primary">Edit this job</button>
+        </ng-container>
+
+        <ng-template #formEdit>
+            <form [formGroup]="form">
+                <div class="form-group">
+                  <label for="company">Company:</label>
+                  <input formControlName='company' type="text" class="form-control" id="company">
+                </div>
+                <div class="form-group">
+                  <label for="logo">Logo:</label>
+                  <input formControlName='logo' type="text" class="form-control" id="logo">
+                </div>
+                <div class="form-group">
+                  <label for="link">Link:</label>
+                  <input formControlName='link' type="text" class="form-control" id="link">
+                </div>
+                <div class="form-group">
+                  <label for="date">Date:</label>
+                  <input formControlName='date' type="text" class="form-control" id="date">
+                </div>
+                <div class="form-group">
+                  <label for="title">Title:</label>
+                  <input formControlName='title' type="text" class="form-control" id="title">
+                </div>
+                <div>
+                  <label for="type">Type: </label>
+            
+                  <select formControlName='type' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option value="">Select an option</option>
+                    <option value="0">Partime</option>
+                    <option value="1">Fulltime</option>
+                  </select>
+                </div>
+                
+                
+                <button [disabled]="form.invalid" type="button" (click)="onUpdate()" class="btn btn-primary">Update this job</button>
+              </form>
+        </ng-template>
+        
+    </ng-container>
+</div>
+

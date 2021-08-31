@@ -1,0 +1,61 @@
+<div class="container">
+  <header class="d-flex justify-content-between align-items-center my-2">
+    <a href="#" class="brand">remotejobs</a>
+    <button type="button" class="btn btn-primary" (click)="onAdd()">
+      <fa-icon [icon]="add"></fa-icon>
+      New Job
+    </button>
+  </header>
+
+  <form [formGroup]="form" [hidden]="!formAddStatus$">
+    <div class="form-group">
+      <label for="company">Company:</label>
+      <input formControlName='company' type="text" class="form-control" id="company">
+    </div>
+    <div class="form-group">
+      <label for="logo">Logo:</label>
+      <input formControlName='logo' type="text" class="form-control" id="logo">
+    </div>
+    <div class="form-group">
+      <label for="link">Link:</label>
+      <input formControlName='link' type="text" class="form-control" id="link">
+    </div>
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input formControlName='date' type="text" class="form-control" id="date">
+    </div>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input formControlName='title' type="text" class="form-control" id="title">
+    </div>
+    <div>
+      <label for="type">Type: </label>
+
+      <select formControlName='type' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option value="">Select an option</option>
+        <option value="0">Partime</option>
+        <option value="1">Fulltime</option>
+      </select>
+    </div>
+    
+    
+    <button [disabled]="form.invalid" (click)="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <div class="job-search py-2 my-2">
+    <input
+      #searchValue
+      type="text"
+      placeholder="Search by job title"
+      class="d-block my-2 p-2 w-100"
+    />
+  </div>
+
+  <div class="job-listings my-2">
+    <ng-container *ngIf="jobs$ | async as jobs">
+      <div *ngFor="let job of jobs">
+        <app-job [job]="job" (delete)="onRemove($event)"></app-job>
+      </div>
+    </ng-container>
+  </div>
+</div>
